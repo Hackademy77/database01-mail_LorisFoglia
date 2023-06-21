@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\Contact;
+use App\Mail\ContactMail;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -61,8 +62,7 @@ class PublicController extends Controller
         $nome = $request->input('nome');
         $cognome = $request->input('cognome');
         $testo = $request->input('descrizione');
-        
-        $contact = new Contact($nome, $cognome, $testo);
+        $contact = new ContactMail($nome, $cognome, $testo);
 
         Mail::to('loris91@mail.it')->send($contact);
     }
