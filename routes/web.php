@@ -16,10 +16,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PublicController::class, "showArtist"])->name('home');
 
-Route::get('/dettagli/{id}', [PublicController::class, "showDettagli"])->name('show.dettagli');
+Route::get('/artist/create', [PublicController::class, "crea"])->name('artista.crea');
+
+Route::post('/artist/store', [PublicController::class, "store"])->name('artista.store');
+
+Route::get('/artist/create', [PublicController::class, "crea"])->name('artista.crea');
+
+Route::get('/artist/dettagli/{id}', [PublicController::class, "showDettagli"])->name('show.dettagli');
 
 Route::get('/cerca', [PublicController::class, "cercaArtista"])->name('cerca.artista');
 
 Route::get('/contattaci', [PublicController::class, "contattaci"])->name('contattaci');
 
 Route::post('/messaggi', [PublicController::class, "messaggiRicevuti"])->name('messaggiRicevuti');
+
+Route::get('/arrivederci', [PublicController::class, "arrivederci"])->name('arrivederci');

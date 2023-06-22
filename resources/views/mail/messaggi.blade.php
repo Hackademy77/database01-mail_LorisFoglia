@@ -11,6 +11,11 @@
 
 <h1>Contatti</h1>
 
+<p>il singor {{$tuonome}} {{$tuocognome}} ha scritto: <br>
+{{$tuadescrizione}}
+</p>
+
+
    
 </body>
 </html>
