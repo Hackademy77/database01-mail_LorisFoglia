@@ -20,8 +20,6 @@ Route::get('/artist/create', [PublicController::class, "crea"])->name('artista.c
 
 Route::post('/artist/store', [PublicController::class, "store"])->name('artista.store');
 
-Route::get('/artist/create', [PublicController::class, "crea"])->name('artista.crea');
-
 Route::get('/artist/dettagli/{id}', [PublicController::class, "showDettagli"])->name('show.dettagli');
 
 Route::get('/cerca', [PublicController::class, "cercaArtista"])->name('cerca.artista');
