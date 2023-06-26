@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Mail\Contact;
 use App\Models\Artist;
+use App\Models\Artista;
 use App\Mail\ContactMail;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Requests\ArtistRequest;
 use Illuminate\Support\Facades\Mail;
 
 class PublicController extends Controller
@@ -27,18 +29,20 @@ class PublicController extends Controller
 
     public function showArtist() {
 
-        $artists = Artist::all();
+        $artists = Artista::all();
 
         return view('artisti.welcome', ['artisti' => $artists]);
     }
 
 
     public function showDettagli($id) {
-        foreach($this->artists as $artist){
-        if($artist['id']==$id){
-            return view('artisti.dettagli', ['artista' => $artist]);
-            }
-        }
+        // foreach($this->artists as $artist){
+        // if($artist['id']==$id){
+        //     return view('artisti.dettagli', ['artista' => $artist]);
+        //     }
+        // }
+        $artist = Artista::find($id);
+        return view('artisti.dettagli', ['artista' => $artist]);
     }
 
 
@@ -46,9 +50,9 @@ class PublicController extends Controller
     public function cercaArtista(Request $request) {
         
             $chiaveDiRicerca = $request->query('chiave');
-
+            $artists = Artista::all();
             $filterArtist=[];
-            foreach ($this->artists as $artist) {
+            foreach ($artists as $artist) {
                 if(Str::of(Str::lower($artist['name']))->contains(Str::lower($chiaveDiRicerca))){
                     array_push($filterArtist, $artist);
                 }
@@ -84,14 +88,19 @@ class PublicController extends Controller
     }
 
 
-    public function store(Request $request){
+    public function store(ArtistRequest $request){
 
         $nome = $request->input('name');
         $tipo = $request->input('type');
         $descrizione = $request->input('description');
-        $img = $request->input('img');
         
-        Artist::create([
+        if($request->file('img')== null){
+            $img = 'ignoto.jpg';
+        }else{
+            $img = $request->file('img')->store('public/artists');
+        }
+
+        Artista::create([
             'name' => $nome,
             'type' => $tipo,
             'description' => $descrizione,
@@ -100,7 +109,5 @@ class PublicController extends Controller
 
         return to_route('home');
     }
-
-
 
 }

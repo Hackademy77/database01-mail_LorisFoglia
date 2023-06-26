@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('artists', function (Blueprint $table) {
+        Schema::create('artisti', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->string("type");
-            $table->string("img");
-            $table->text("description");
+            $table->string('name');
+            $table->string('type');
+            $table->string('img');
+            $table->string('description');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('artists');
+        Schema::dropIfExists('artisti');
     }
 };
